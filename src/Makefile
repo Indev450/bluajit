@@ -228,11 +228,11 @@ TARGET_AR= $(CROSS)ar rcus
 TARGET_STRIP= $(CROSS)strip
 
 TARGET_LIBPATH= $(or $(PREFIX),/usr/local)/$(or $(MULTILIB),lib)
-TARGET_SONAME= libluajit-$(ABIVER).so.$(MAJVER)
-TARGET_DYLIBNAME= libluajit-$(ABIVER).$(MAJVER).dylib
+TARGET_SONAME= libbluajit-$(ABIVER).so.$(MAJVER)
+TARGET_DYLIBNAME= libbluajit-$(ABIVER).$(MAJVER).dylib
 TARGET_DYLIBPATH= $(TARGET_LIBPATH)/$(TARGET_DYLIBNAME)
-TARGET_DLLNAME= lua$(NODOTABIVER).dll
-TARGET_DLLDOTANAME= libluajit-$(ABIVER).dll.a
+TARGET_DLLNAME= blua$(NODOTABIVER).dll
+TARGET_DLLDOTANAME= libbluajit-$(ABIVER).dll.a
 TARGET_XSHLDFLAGS= -shared -fPIC -Wl,-soname,$(TARGET_SONAME)
 TARGET_DYNXLDOPTS=
 
@@ -549,10 +549,10 @@ LJVMCORE_DYNO= $(LJVMCORE_O:.o=_dyn.o)
 LIB_VMDEF= jit/vmdef.lua
 LIB_VMDEFP= $(LIB_VMDEF)
 
-LUAJIT_O= luajit.o
-LUAJIT_A= libluajit.a
-LUAJIT_SO= libluajit.so
-LUAJIT_T= luajit
+LUAJIT_O= bluajit.o
+LUAJIT_A= libbluajit.a
+LUAJIT_SO= libbluajit.so
+LUAJIT_T= bluajit
 
 ALL_T= $(LUAJIT_T) $(LUAJIT_A) $(LUAJIT_SO) $(HOST_T)
 ALL_HDRGEN= lj_bcdef.h lj_ffdef.h lj_libdef.h lj_recdef.h lj_folddef.h \

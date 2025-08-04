@@ -39,10 +39,10 @@ INSTALL_BIN=   $(DPREFIX)/bin
 INSTALL_LIB=   $(DPREFIX)/$(MULTILIB)
 INSTALL_SHARE_= $(PREFIX)/share
 INSTALL_SHARE= $(DESTDIR)$(INSTALL_SHARE_)
-INSTALL_DEFINC= $(DPREFIX)/include/luajit-$(MMVERSION)
+INSTALL_DEFINC= $(DPREFIX)/include/bluajit-$(MMVERSION)
 INSTALL_INC=   $(INSTALL_DEFINC)
 
-export INSTALL_LJLIBD= $(INSTALL_SHARE_)/luajit-$(MMVERSION)
+export INSTALL_LJLIBD= $(INSTALL_SHARE_)/bluajit-$(MMVERSION)
 INSTALL_JITLIB= $(DESTDIR)$(INSTALL_LJLIBD)/jit
 INSTALL_LMODD= $(INSTALL_SHARE)/lua
 INSTALL_LMOD= $(INSTALL_LMODD)/$(ABIVER)
@@ -51,16 +51,16 @@ INSTALL_CMOD= $(INSTALL_CMODD)/$(ABIVER)
 INSTALL_MAN= $(INSTALL_SHARE)/man/man1
 INSTALL_PKGCONFIG= $(INSTALL_LIB)/pkgconfig
 
-INSTALL_TNAME= luajit-$(VERSION)
-INSTALL_TSYMNAME= luajit
-INSTALL_ANAME= libluajit-$(ABIVER).a
-INSTALL_SOSHORT1= libluajit-$(ABIVER).so
-INSTALL_SOSHORT2= libluajit-$(ABIVER).so.$(MAJVER)
-INSTALL_SONAME= libluajit-$(ABIVER).so.$(VERSION)
-INSTALL_DYLIBSHORT1= libluajit-$(ABIVER).dylib
-INSTALL_DYLIBSHORT2= libluajit-$(ABIVER).$(MAJVER).dylib
-INSTALL_DYLIBNAME= libluajit-$(ABIVER).$(VERSION).dylib
-INSTALL_PCNAME= luajit.pc
+INSTALL_TNAME= bluajit-$(VERSION)
+INSTALL_TSYMNAME= bluajit
+INSTALL_ANAME= libbluajit-$(ABIVER).a
+INSTALL_SOSHORT1= libbluajit-$(ABIVER).so
+INSTALL_SOSHORT2= libbluajit-$(ABIVER).so.$(MAJVER)
+INSTALL_SONAME= libbluajit-$(ABIVER).so.$(VERSION)
+INSTALL_DYLIBSHORT1= libbluajit-$(ABIVER).dylib
+INSTALL_DYLIBSHORT2= libbluajit-$(ABIVER).$(MAJVER).dylib
+INSTALL_DYLIBNAME= libbluajit-$(ABIVER).$(VERSION).dylib
+INSTALL_PCNAME= bluajit.pc
 
 INSTALL_STATIC= $(INSTALL_LIB)/$(INSTALL_ANAME)
 INSTALL_DYN= $(INSTALL_LIB)/$(INSTALL_SONAME)
@@ -90,11 +90,11 @@ ifneq ($(INSTALL_DEFINC),$(INSTALL_INC))
   SED_PC+= -e "s|^includedir=.*|includedir=$(INSTALL_INC)|"
 endif
 
-FILE_T= luajit
-FILE_A= libluajit.a
-FILE_SO= libluajit.so
-FILE_MAN= luajit.1
-FILE_PC= luajit.pc
+FILE_T= bluajit
+FILE_A= libbluajit.a
+FILE_SO= libbluajit.so
+FILE_MAN= bluajit.1
+FILE_PC= bluajit.pc
 FILES_INC= lua.h lualib.h lauxlib.h luaconf.h lua.hpp luajit.h
 FILES_JITLIB= bc.lua bcsave.lua dump.lua p.lua v.lua zone.lua \
 	      dis_x86.lua dis_x64.lua dis_arm.lua dis_arm64.lua \
@@ -120,7 +120,7 @@ endif
 
 ##############################################################################
 
-INSTALL_DEP= src/luajit
+INSTALL_DEP= src/bluajit
 
 default all $(INSTALL_DEP):
 	@echo "==== Building LuaJIT $(MMVERSION) ===="
