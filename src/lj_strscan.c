@@ -578,9 +578,9 @@ StrScanFmt lj_strscan_scan(const uint8_t *p, MSize len, TValue *o,
       // make behaviour consistent between platforms
       // by replicating strtols cutoff behaviour for 32bit wide long
 
-      uint32_t cutoff = neg ? -(uint32_t)INT32_MIN : INT32_MAX;
-      int32_t cutlim = cutoff % (unsigned int)base;
-      cutoff /= (unsigned int)base;
+      int32_t cutoff = neg ? -(int32_t)INT32_MIN : INT32_MAX;
+      int32_t cutlim = cutoff % base;
+      cutoff /= base;
 
       int64_t x2 = (int64_t)(neg ? ~x+1u : x);
       if (x2 > cutoff || (x2 == cutoff && (x % base) > cutlim))
