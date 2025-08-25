@@ -574,32 +574,10 @@ StrScanFmt lj_strscan_scan(const uint8_t *p, MSize len, TValue *o,
       fmt = strscan_bin(sp, o, fmt, opt, ex, neg, dig);
     else
 #if LJ_INTONLY
-    {
-      // make behaviour consistent between platforms
-      // by replicating strtols cutoff behaviour for 32bit wide long
-      // on a 10 base (standart blua uses it)
-
-      /*
-      * ..if the range for longs is
-      * [-2147483648..2147483647] and the input base is 10,
-      * cutoff will be set to 214748364...
-      */
-
-#define STRCUTOFF 214748364
-
-      int64_t x2 = (int64_t)(neg ? ~x+1u : x);
-      if (x2 > STRCUTOFF)
-        x2 = INT32_MAX;
-      else if (x2 < STRCUTOFF)
-        x2 = INT32_MIN;
-
-#undef STRCUTOFF
-
       if (fmt == STRSCAN_NUM)
-        setnumV(o, (lua_Number)(int32_t)x2);
+        setnumV(o, (lua_Number)(int32_t)(neg ? ~x+1u : x));
       else
-        setintV(o, (int32_t)x2);
-    }
+        setintV(o, (int32_t)(neg ? ~x+1u : x));
 #else
       fmt = strscan_dec(sp, o, fmt, opt, ex, neg, dig);
 #endif
