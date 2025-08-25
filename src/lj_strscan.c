@@ -574,10 +574,23 @@ StrScanFmt lj_strscan_scan(const uint8_t *p, MSize len, TValue *o,
       fmt = strscan_bin(sp, o, fmt, opt, ex, neg, dig);
     else
 #if LJ_INTONLY
+    {
+      // make behaviour consistent between platforms
+      // by replicating strtols cutoff behaviour for 32bit wide long
+
+      uint32_t cutoff = neg ? -(uint32_t)INT32_MIN : INT32_MAX;
+      int32_t cutlim = cutoff % (unsigned int)base;
+      cutoff /= (unsigned int)base;
+
+      int64_t x2 = (int64_t)(neg ? ~x+1u : x);
+      if (x2 > cutoff || (x2 == cutoff && (x % base) > cutlim))
+        x2 = neg ? INT32_MIN : INT32_MAX;
+
       if (fmt == STRSCAN_NUM)
-        setnumV(o, (lua_Number)(int32_t)(neg ? ~x+1u : x));
+        setnumV(o, (lua_Number)(int32_t)x2);
       else
-        setintV(o, (int32_t)(neg ? ~x+1u : x));
+        setintV(o, (int32_t)x2);
+    }
 #else
       fmt = strscan_dec(sp, o, fmt, opt, ex, neg, dig);
 #endif
